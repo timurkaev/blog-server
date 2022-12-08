@@ -1,0 +1,21 @@
+{
+	"env": {
+		"es2020": true,
+		"node": true
+	},
+	"extends": ["standard", "plugin:@typescript-eslint/recommended", "prettier"],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaVersion": 11,
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "prettier"],
+	"rules": {
+		"semi": ["warn", "always"],
+		"camelcase": "error",
+		"spaced-comment": "error",
+		"quotes": ["error", "double"],
+		"@typescript-eslint/consistent-type-imports": "error",
+		"prefer-arrow-callback": "error"
+	}
+}
