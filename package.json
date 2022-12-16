@@ -2,14 +2,14 @@
 	"name": "backend",
 	"version": "1.0.0",
 	"description": "typescript javascript node.js express",
-	"main": "./src/index.ts",
+	"main": "./src/main.ts",
 	"author": "ismail<timurkaev.is@gmail.com>",
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"build": "tsc",
-		"start": "node dist/index.js",
-		"start:dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+		"build": "tsc ./src",
+		"start": "node ./dist/main.js",
+		"start:dev": "concurrently \"tsc\" \"nodemon dist/main.js\"",
 		"eslint:fix": "eslint --fix"
 	},
 	"dependencies": {
