@@ -5,20 +5,21 @@
 	"main": "./src/main.ts",
 	"author": "ismail<timurkaev.is@gmail.com>",
 	"license": "MIT",
-	"type": "module",
 	"scripts": {
 		"build": "tsc ./src",
 		"start": "node ./dist/main.js",
-		"start:dev": "concurrently \"tsc\" \"nodemon dist/main.js\"",
+		"start:dev": "nodemon",
 		"eslint:fix": "eslint --fix"
 	},
 	"dependencies": {
 		"bcrypt": "^5.1.0",
+		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
 		"express-validator": "^6.14.2",
 		"jsonwebtoken": "^8.5.1",
-		"mongoose": "^6.8.0"
+		"mongoose": "^6.8.0",
+		"tslog": "^4.4.4"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^4.0.0",

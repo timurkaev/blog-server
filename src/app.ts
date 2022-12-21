@@ -1,36 +1,37 @@
-import type { UsersController } from "./controllers/users/users.controller.js";
+import { router } from "./routes";
 import "dotenv/config";
-import type { Express } from "express";
-import express from "express";
+import type { Express, Router } from "express";
+import express, { json } from "express";
 import type { Server } from "http";
 
 export class App {
 	app: Express;
 	server: Server;
-	port: number;
-	db: string;
-	userController: UsersController;
+	readonly port: string;
+	readonly db: string;
+	router: Router;
 
-	constructor(userController: UsersController) {
+	constructor() {
 		this.app = express();
-		this.port = process.env.PORT;
-		this.db = process.env.DB;
-		this.userController = userController;
+		this.port = process.env.PORT ?? "error";
+		this.db = process.env.DB ?? "error";
+		this.router = router;
 	}
 
 	useRoutes() {
-		this.app.use("/auth", this.userController.router);
+		this.app.use("/api", router);
 	}
 
 	useDb() {
-		express().connect(this.db);
-		console.log("DB connect");
+		this.app.connect(this.db);
+		console.log("База данных подключенна");
 	}
 
-	public async init() {
+	public init() {
+		this.app.use(json);
 		this.useRoutes();
-		this.server = this.app.listen(this.port);
 		this.useDb();
+		this.server = this.app.listen(this.port);
 		console.log(`Сервер запущен на http://localhost:${this.port}`);
 	}
 }

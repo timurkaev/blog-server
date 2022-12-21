@@ -1,43 +1,39 @@
-// import { UserSchema } from "../models/UserSchema.js";
-// import type { UserTypes } from "../types/user.js";
-// import bcrypt from "bcrypt";
-// import type { Request, Response } from "express";
-// import jwt from "jsonwebtoken";
-//
-// class UserController {
-// 	async register(req: Request, res: Response) {
-// 		try {
-// 			const passwordHash = await req.body.password;
-// 			const salt = await bcrypt.genSalt(10);
-// 			const hash = await bcrypt.hash(passwordHash, salt);
-// 			const document = new UserSchema<UserTypes>({
-// 				fullName: req.body.fullName,
-// 				email: req.body.email,
-// 				password: hash,
-// 				avatar: req.body.avatar,
-// 			});
-//
-// 			const { email } = req.body;
-// 			const candidate = await UserSchema.findOne({ email });
-//
-// 			const user = await document.save();
-// 			const token = jwt.sign({ _id: user._id }, "secretkey", {
-// 				expiresIn: "14d",
-// 			});
-//
-// 			if (candidate) {
-// 				return res.status(400).json({
-// 					message: "Пользователь с такой почтой уже существует",
-// 				});
-// 			}
-//
-// 			res.json(token);
-// 		} catch (error) {
-// 			res.status(500).json({
-// 				message: "Ошибка при регистрации",
-// 			});
-// 		}
-// 	}
-// }
-//
-// export default new UserController();
+import type { NextFunction, Request, Response } from "express";
+
+export class UserController {
+	public async register(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.send("Registration");
+		} catch (error) {}
+	}
+
+	async login(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.send("login");
+		} catch (error) {}
+	}
+
+	async logout(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.send("logout");
+		} catch (error) {}
+	}
+
+	async activate(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.send("activate");
+		} catch (error) {}
+	}
+
+	async refresh(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.send("refresh");
+		} catch (error) {}
+	}
+
+	async getUsers(req: Request, res: Response, next: NextFunction) {
+		try {
+			res.json({ message: "getUsers" });
+		} catch (error) {}
+	}
+}

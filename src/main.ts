@@ -1,9 +1,8 @@
-import { App } from "./app.js";
-import { UsersController } from "./controllers/users/users.controller.js";
+import { App } from "./app";
 
-async function bootstrap() {
-	const app = new App(new UsersController());
-	await app.init();
+async function bootstrap(): Promise<void> {
+	const app = new App();
+	return app.init();
 }
 
 bootstrap();
