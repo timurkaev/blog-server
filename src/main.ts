@@ -1,8 +1,12 @@
 import { App } from "./app";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const dotenv = require("dotenv");
+
 async function bootstrap(): Promise<void> {
+	dotenv.config();
 	const app = new App();
-	return app.init();
+	await app.init();
 }
 
 bootstrap();
