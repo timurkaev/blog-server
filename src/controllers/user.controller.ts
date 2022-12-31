@@ -1,11 +1,25 @@
+import type { LoggerService } from "../service/logger.service";
 import { userService } from "../service/user.service";
+import { BaseController } from "./base.controller";
 import type { NextFunction, Request, Response } from "express";
 
-export class UserController {
+export class UserController extends BaseController {
+	constructor(logger: LoggerService) {
+		super(logger);
+		this.bindRoutes([
+			{ path: "/registration", method: "post", func: this.registration },
+			{ path: "/activate/:link", method: "get", func: this.activate },
+		]);
+	}
+
 	registration = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const { email, password } = req.body;
-			const userData = await userService.registration(email, password);
+			const { fullName, email, password } = req.body;
+			const userData = await userService.registration(
+				fullName,
+				email,
+				password
+			);
 			res.cookie("refreshToken", userData.refreshToken, {
 				maxAge: 30 * 24 + 60 + 60 + 1000,
 				httpOnly: true,

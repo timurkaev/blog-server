@@ -14,14 +14,19 @@ export class UserService {
 		this.userModel = UserModel;
 	}
 
-	async registration(email: string, password: string) {
-		const candidate = await this.userModel.findOne({ email });
-		if (candidate) {
+	async registration(fullName: string, email: string, password: string) {
+		const emailCandidate = await this.userModel.findOne({ email });
+		const nameCandidate = await this.userModel.findOne({ fullName });
+		if (emailCandidate) {
 			throw new Error("Пользователь с такой почтой уже существует");
+		}
+		if (nameCandidate) {
+			throw new Error("Это имя пользователя уже занято");
 		}
 		const hashPassword = await bcrypt.hash(password, 3);
 		const activationLink = v4();
 		const user = await this.userModel.create({
+			fullName,
 			email,
 			password: hashPassword,
 			activationLink,

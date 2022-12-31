@@ -1,5 +1,5 @@
-import { UserController } from "./controllers/user.controller";
-import { router } from "./routes";
+import type { UserController } from "./controllers/user.controller";
+// import { router } from "./routes";
 import type { LoggerService } from "./service/logger.service";
 import cookieParser from "cookie-parser";
 import type { Express, Router } from "express";
@@ -15,18 +15,20 @@ export class App {
 	readonly db: string;
 	router: Router;
 	mongoose: typeof mongoose;
+	userController: UserController;
 
-	constructor(logger: LoggerService) {
+	constructor(logger: LoggerService, userController: UserController) {
 		this.app = express();
 		this.port = process.env.PORT || "5555";
 		this.db = process.env.DB || "";
 		this.logger = logger;
-		this.router = router;
+		// this.router = router;
 		this.mongoose = mongoose;
+		this.userController = userController;
 	}
 
 	useRoutes() {
-		this.app.use("/api", router);
+		this.app.use("/api", this.userController.router);
 	}
 
 	useDb() {

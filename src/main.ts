@@ -1,12 +1,11 @@
 import { App } from "./app";
+import { UserController } from "./controllers/user.controller";
 import { LoggerService } from "./service/logger.service";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const dotenv = require("dotenv");
+import "dotenv/config";
 
 async function bootstrap(): Promise<void> {
-	dotenv.config();
-	const app = new App(new LoggerService());
+	const logger = new LoggerService();
+	const app = new App(logger, new UserController(logger));
 	await app.init();
 }
 
